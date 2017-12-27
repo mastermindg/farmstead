@@ -34,7 +34,12 @@ require "mechanize"
 require "farmstead/version"
 require "farmstead/config"
 require "farmstead/cli"
-require "farmstaed/service.rb"
+require "farmstead/service"
+require "farmstead/tinman"
+require "farmstead/cowardlylion"
+require "farmstead/glenda"
+require "farmstead/scarecrow"
+require "farmstead/tinman"
 
 module Farmstead
   # Your code goes here...
