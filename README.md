@@ -42,7 +42,7 @@ farmstead start
 
 ### Configuration
 
-Farmstaed tries to follow Rails conventions. Some of the configuration options are available from the command-line. For instance, to chose a different database techhnology use the -d flag:
+Farmstead tries to follow Rails conventions. Some of the configuration options are available from the command-line. For instance, to chose a different database techhnology use the -d flag:
 
 ```
 farmstead new myproject -d postgres

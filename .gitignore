@@ -12,3 +12,4 @@ pkg
 /*/doc
 /*/test/tmp
 rebuild.sh
+*.gem

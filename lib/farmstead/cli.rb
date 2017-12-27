@@ -5,9 +5,15 @@ require "thor"
 
 module Farmstead
   class CLI < Thor
+    class_option :verbose, aliases: "-v", type: "boolean", desc: "Be verbose"
+    class_option :config, aliases: "-x", type: "string", desc: "Config file"
     desc "new projectname", "Create a new project"
     def new(projectname)
-      p projectname
+      if options[:config]
+        p "Loading configuration file for #{projectname}"
+      else
+        p projectname
+      end
     end
 
     desc "tinman command", "Send a command to tinman"
