@@ -1,4 +1,6 @@
-require 'thor'
+# frozen_string_literal: true
+
+require "thor"
 # require 'farmstead/cli/hn'
 # require 'farmstead/cli/twitter'
 # require 'farmstead/cli/net'
@@ -19,10 +21,16 @@ module Farmstead
     http://stackoverflow.com/a/12785204
     HELLO_WORLD
     option :upcase
-    def hello( name )
+    def hello(name)
       greeting = "Hello, #{name}"
       greeting.upcase! if options[:upcase]
       puts greeting
+    end
+
+    desc "tinman command", "Send a command to tinman"
+    def tinman(command)
+      instance = Farmstead::Tinman.new
+      instance.send(command)
     end
 
     #desc "hn COMMANDS", "Hacker News Control Module"
