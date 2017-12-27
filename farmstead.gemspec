@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-#version = File.read(File.expand_path("VERSION", __dir__)).strip
-
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'farmstead/version'
+require "farmstead/version"
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
