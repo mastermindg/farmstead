@@ -1,0 +1,27 @@
+FROM ruby:2.4.1
+
+RUN apt-get update -qq && \
+    apt-get install -y build-essential \
+    libpq-dev \
+    nodejs \
+    telnet \
+    bash \
+    supervisor \
+    vim \
+    xterm \
+    ca-certificates \
+    unzip && \
+    rm -rf /var/cache/apk/*
+
+## Setup Ruby
+RUN mkdir /myapp
+WORKDIR /myapp
+ADD Gemfile* /myapp/
+RUN gem install bundler && bundle install --jobs 20 --retry 5
+ADD . /myapp
+
+COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 3000
+
+CMD /myapp/bin/rails s -b 0.0.0.0

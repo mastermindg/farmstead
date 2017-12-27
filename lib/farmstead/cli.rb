@@ -12,7 +12,7 @@ module Farmstead
       if options[:config]
         p "Loading configuration file for #{projectname}"
       else
-        p projectname
+        Farmstead::New
       end
     end
 
