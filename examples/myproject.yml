@@ -1,0 +1,23 @@
+- name: My Project
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: False
+  remote_user: root
+  roles:
+    - create
+
+AUTH0_CLIENT_ID={CLIENT_ID}
+AUTH0_CLIENT_SECRET={CLIENT_SECRET}
+AUTH0_DOMAIN={DOMAIN}
+AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
+AUTH0_AUDIENCE=
+MYSQL_ROOT_PASSWORD=Rc2$NE99p5%^
+MYSQL_DATABASE=farmstead
+MYSQL_USER=farmstead
+MYSQL_PASSWORD=farmstead
+MYSQL_HOST=mysql
+RAILS_ENV=development
+KAFKA_ADVERTISED_HOST_NAME=192.168.1.13
+KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+KAFKA_CREATE_TOPICS=Wood:1:1,Field:1:1,Forest:1:1,Road:1:1
+

@@ -1,0 +1,13 @@
+.env
+tmp/
+log/
+.Gemfile
+.ruby-version
+.byebug_history
+debug.log
+pkg
+/.bundle
+/dist
+/doc/rdoc
+/*/doc
+/*/test/tmp
