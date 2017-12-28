@@ -41,6 +41,16 @@ module Farmstead
       instance.send(command)
     end
 
+    desc "foo", "Test foo"
+    def foo
+      true
+    end
+
+    desc "bar", "Test bar"
+    def bar
+      true
+    end
+
     # desc "net COMMANDS", "Net control Module"
     # subcommand "net", Socialinvestigator::CLI::Net
   end

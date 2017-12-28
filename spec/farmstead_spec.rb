@@ -3,7 +3,9 @@ RSpec.describe Farmstead do
     expect(Farmstead::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+  # it "sets options to the next method to be invoked" do
+  #   args = %w(foo bar)
+  #   _, options = Farmstead::CLI.start(args)
+  #   expect(options).to eq(true)
+  # end
 end
