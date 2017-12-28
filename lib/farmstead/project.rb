@@ -4,9 +4,12 @@ require "erb"
 # require 'farmstead/cli/net'
 
 module Farmstead
-  class New
-    def initialize(project_name)
-      @project_name = project_name
+  class Project
+    attr_accessor :name
+
+    def initialize
+      #@project_name = project_name
+      #@config_file = config_file
       #create_directory
       generate_files
     end
@@ -16,6 +19,7 @@ module Farmstead
     end
 
     def generate_files
+      p @project_name
       Dir["scaffold/*"].each do |file|
         if File.file?(file)
           p basename = File.basename(file, File.extname(file))

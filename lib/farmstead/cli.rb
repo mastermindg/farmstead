@@ -7,10 +7,11 @@ module Farmstead
   class CLI < Thor
     class_option :verbose, aliases: "-v", type: "boolean", desc: "Be verbose"
     class_option :config, aliases: "-x", type: "string", desc: "Config file"
+    class_option :database, aliases: "-d", type: "string", desc: "Database"
     desc "new project_name", "Create a new project"
     def new(project_name)
       if options[:config]
-        p "Loading configuration file for #{project_name}"
+        Farmstead::New.new(project_name, options[:config])
       else
         Farmstead::New.new(project_name)
       end
