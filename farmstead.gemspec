@@ -21,7 +21,8 @@ Gem::Specification.new do |s|
   s.homepage = "http://farmstead.kenjenney.com"
 
   s.files         = `git ls-files -z`.split("\x0")
-  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  # s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.executables   = ["farmstead"]
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
