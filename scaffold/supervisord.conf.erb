@@ -1,0 +1,10 @@
+[supervisord]
+nodaemon=true
+
+[program:producer]
+command=/usr/local/bin/ruby /myapp/app/lib/farmstead.rb %(ENV_SERVICE)s producer
+redirect_stderr=true
+
+[program:consumer]
+command=/usr/local/bin/ruby /myapp/app/lib/farmstead.rb %(ENV_SERVICE)s consumer
+redirect_stderr=true

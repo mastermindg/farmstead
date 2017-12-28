@@ -1,0 +1,131 @@
+version: '3'
+
+services:
+  mysql:
+    image: 'mysql:5.7'
+    env_file:
+      - '.env'
+    ports:
+      - '3306:3306'
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - '2181:2181'
+
+  kafka:
+    depends_on:
+      - 'zookeeper'
+    build:
+      context: ./kafka
+      args:
+        kafka_version: '0.10.2.1'
+        scala_version: '2.10'
+    ports:
+      - '9092:9092'
+    env_file:
+      - '.env'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # kafka-manager:
+  #   image: solsson/kafka-manager
+  #   depends_on:
+  #     - 'kafka'
+  #   ports:
+  #     - '9000:9000'
+  #   environment:
+  #     - ZK_HOSTS=zookeeper:2181
+
+  # selenium:
+  #   image: elgalu/selenium
+    
+  # zalenium:
+  #   image: dosel/zalenium
+  #   container_name: zalenium
+  #   hostname: zalenium
+  #   tty: true
+  #   volumes:
+  #     #- ${project.build.directory}/videos:/home/seluser/videos
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /usr/bin/docker:/usr/bin/docker
+  #   ports:
+  #     - 4444:4444
+  #   command: >
+  #     start --desiredContainers 2
+  #           --maxDockerSeleniumContainers 4
+  #           --screenWidth 800 --screenHeight 600
+  #           --timeZone "Europe/Berlin"
+    #--videoRecordingEnabled true
+    #--sauceLabsEnabled true
+    #--startTunnel true
+    #environment:
+      #- HOST_UID
+      #- HOST_GID
+      #- SAUCE_USERNAME
+      #- SAUCE_ACCESS_KEY
+
+  dorothy:
+    depends_on:
+      - 'mysql'
+    build: .
+    ports:
+      - '3000:3000'
+    env_file:
+      - '.env'
+
+  glenda:
+    depends_on:
+      - 'dorothy'
+    build: .
+    command: /usr/bin/supervisord
+    environment:
+      SERVICE: glenda
+    env_file:
+      - '.env'
+  
+  tinman:
+    depends_on:
+      - 'dorothy'
+    build: .
+    command: /usr/bin/supervisord
+    environment:
+      SERVICE: tinman
+    env_file:
+      - '.env'
+
+  scarecrow:
+    depends_on:
+      - 'dorothy'
+    build: .
+    command: /usr/bin/supervisord
+    environment:
+      SERVICE: scarecrow
+    env_file:
+      - '.env'
+
+  # scarecrow:
+  #   depends_on:
+  #     - 'dorothy'
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.selenium
+  #   environment:
+  #     SERVICE: scarecrow
+  #   env_file:
+  #     - '.env'
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+
+  cowardlylion:
+    depends_on:
+      - 'dorothy'
+    build: .
+    command: /usr/bin/supervisord
+    environment:
+      SERVICE: cowardlylion
+    env_file:
+      - '.env'
+
+#volumes:
+#  mysql:
