@@ -13,6 +13,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/mastermindg/farmstead"
   spec.license       = "MIT"
 
+  spec.required_ruby_version     = ">= 2.4.1"
+  spec.required_rubygems_version = ">= 2.6.11"
+
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
