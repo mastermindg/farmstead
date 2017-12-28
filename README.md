@@ -1,5 +1,6 @@
 # farmstead
 
+[![Gem Version](https://badge.fury.io/rb/farmstead.svg)](https://badge.fury.io/rb/farmstead)
 [![Build Status](https://api.travis-ci.org/mastermindg/farmstead.svg?branch=master)](http://travis-ci.org/mastermindg/farmstead)
 
 Farmstead is a modular data pipeline platform. Farmstead makes creating and deploying a fully-functional data pipeline a snap. It is built on top of Rails/Ruby and uses Docker. This combination allows for a super-fast deployment and prototyping process.
