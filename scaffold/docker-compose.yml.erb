@@ -27,7 +27,9 @@ services:
   dorothy:
     depends_on:
       - 'mysql'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-dorothy
     ports:
       - '3000:3000'
     env_file:
@@ -37,7 +39,6 @@ services:
     depends_on:
       - 'dorothy'
     build: .
-    command: /usr/bin/supervisord
     environment:
       SERVICE: glenda
     env_file:
@@ -47,7 +48,6 @@ services:
     depends_on:
       - 'dorothy'
     build: .
-    command: /usr/bin/supervisord
     environment:
       SERVICE: tinman
     env_file:
@@ -57,7 +57,6 @@ services:
     depends_on:
       - 'dorothy'
     build: .
-    command: /usr/bin/supervisord
     environment:
       SERVICE: scarecrow
     env_file:
@@ -67,7 +66,6 @@ services:
     depends_on:
       - 'dorothy'
     build: .
-    command: /usr/bin/supervisord
     environment:
       SERVICE: cowardlylion
     env_file:

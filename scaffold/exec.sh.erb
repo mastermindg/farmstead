@@ -3,8 +3,8 @@
 # Script to start Farmstead on Docker
 
 echo "Cleaning up old environment"
-docker-compose stop
-docker-compose rm -f
+docker-compose stop > /dev/null 2>&1
+docker-compose rm -f > /dev/null 2>&1
 
 echo "Building new environment"
 docker-compose build > /dev/null 2>&1
