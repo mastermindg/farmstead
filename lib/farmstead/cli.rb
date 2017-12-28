@@ -6,14 +6,16 @@ require "thor"
 module Farmstead
   class CLI < Thor
     class_option :verbose, aliases: "-v", type: "boolean", desc: "Be verbose"
-    class_option :config, aliases: "-x", type: "string", desc: "Config file"
+    class_option :config, aliases: "-c", type: "string", desc: "Config file"
     class_option :database, aliases: "-d", type: "string", desc: "Database"
+    class_option :deploy, aliases: "-x", type: "string", desc: "Deployment Method"
     desc "new project_name", "Create a new project"
     def new(project_name)
       project = Farmstead::Project.new
       project.name = project_name
       project.database = options[:database] if options[:database]
       project.config = options[:config] if options[:config]
+      project.deploy = options[:deploy] if options[:deploy]
       project.create
     end
 

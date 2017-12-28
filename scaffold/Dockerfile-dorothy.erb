@@ -13,15 +13,12 @@ RUN apt-get update -qq && \
     unzip && \
     rm -rf /var/cache/apk/*
 
-## Setup Ruby
-RUN mkdir /myapp
-WORKDIR /myapp
-ADD Gemfile* /myapp/
-RUN gem install bundler && bundle install --jobs 20 --retry 5
-ADD . /myapp
+## Setup Rails
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN gem install rails && rails new <%= @name %> <% if @database %>-d <%= @database %><% end %>
+WORKDIR /<%= @name %>
+ADD app/* /<%= @name %>/app
 
 EXPOSE 3000
 
-CMD /myapp/bin/rails s -b 0.0.0.0
+CMD /<%= @name %>/bin/rails s -b 0.0.0.0
