@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Base Class for all micro-services
 module Farmstead
   class Service

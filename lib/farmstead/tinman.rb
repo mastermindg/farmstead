@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Tinman - the Fertilizer
 #
 # Tinman is responsible for analyzing a site for changes

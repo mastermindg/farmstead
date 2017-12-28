@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # CowardlyLion - the Miller
 #
 # Cowardlylion is responsible for arranging data into usable blocks

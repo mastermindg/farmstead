@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Scarecrow - the Harvester
 #
 # Scarecrow is responsible for extracting data from a source
