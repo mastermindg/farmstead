@@ -7,7 +7,7 @@ module Farmstead
   class New
     def initialize(project_name)
       @project_name = project_name
-      create_directory
+      #create_directory
       generate_files
     end
 
@@ -17,11 +17,12 @@ module Farmstead
 
     def generate_files
       Dir["scaffold/*"].each do |file|
-        #filename = File.basename(file)
-        basename = File.basename(file, File.extname(file))
-        template = File.read(file)
-        results = ERB.new(template).result(binding)
-        copy_to_directory(results, basename)
+        if File.file?(file)
+          p basename = File.basename(file, File.extname(file))
+          #template = File.read(file)
+          #results = ERB.new(template).result(binding)
+          #copy_to_directory(results, basename)
+        end
       end
     end
 
