@@ -75,6 +75,8 @@ farmstead new myproject -x kubernetes
 
 Kafka and Database ETL
 
+Presently only Dorothy is running Rails. The rest of the services are only running a Kafka consumer and producer. Eventually that will change.
+
 ### Scheduler - Glenda
 
 Glenda

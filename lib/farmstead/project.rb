@@ -6,25 +6,25 @@ require "erb"
 module Farmstead
   class Project
     attr_accessor :name
+    attr_accessor :config
+    attr_accessor :database
 
-    def initialize
-      #@project_name = project_name
-      #@config_file = config_file
-      #create_directory
+    def create
+      # create_directory
       generate_files
     end
 
     def create_directory
-      Dir.mkdir(@project_name) unless Dir.exist?(@project_name)
+      Dir.mkdir(@name) unless Dir.exist?(@name)
     end
 
+    # Generate from templates in scaffold
     def generate_files
-      p @project_name
       Dir["scaffold/*"].each do |file|
         if File.file?(file)
-          p basename = File.basename(file, File.extname(file))
-          #template = File.read(file)
-          #results = ERB.new(template).result(binding)
+          basename = File.basename(file, File.extname(file))
+          template = File.read(file)
+          p results = ERB.new(template).result(binding)
           #copy_to_directory(results, basename)
         end
       end

@@ -10,11 +10,11 @@ module Farmstead
     class_option :database, aliases: "-d", type: "string", desc: "Database"
     desc "new project_name", "Create a new project"
     def new(project_name)
-      if options[:config]
-        Farmstead::New.new(project_name, options[:config])
-      else
-        Farmstead::New.new(project_name)
-      end
+      project = Farmstead::Project.new
+      project.name = project_name
+      project.database = options[:database] if options[:database]
+      project.config = options[:config] if options[:config]
+      project.create
     end
 
     desc "tinman command", "Send a command to tinman"

@@ -32,7 +32,7 @@ require "open-uri"
 require "mechanize"
 
 require "farmstead/version"
-require "farmstead/new"
+require "farmstead/project"
 require "farmstead/cli"
 require "farmstead/service"
 require "farmstead/tinman"
