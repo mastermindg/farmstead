@@ -27,21 +27,25 @@ module Farmstead
 
     # Generate from templates in scaffold
     def generate_files
-      erbfiles = File.join("**", "*.erb")
-      scaffold = Dir.glob(erbfiles, File::FNM_DOTMATCH)
-      scaffold.each do |file|
-        filename = file.match('lib\/farmstead\/scaffold\/(.*)')[1]
-        foldername = File.dirname(filename)
-        # Create folder structure of subdirectories
-        if foldername != "."
-          create_recursive(foldername)
-        end
-        projectpath = "#{@name}/#{filename}".chomp(".erb")
-        scaffoldpath = "lib/farmstead/scaffold/#{filename}"
-        template = File.read(scaffoldpath)
-        results = ERB.new(template).result(binding)
-        copy_to_directory(results, projectpath)
-      end
+      #erbfiles = File.join("**", "*.erb")
+      scaffold_path = "#{File.dirname __FILE__}/scaffold/"
+      Dir.chdir scaffold_path
+      files = Dir.glob("**/*")
+      p files.inspect
+      #scaffold = Dir.glob(erbfiles, File::FNM_DOTMATCH)
+      # scaffold.each do |file|
+      #   filename = file.match('lib\/farmstead\/scaffold\/(.*)')[1]
+      #   foldername = File.dirname(filename)
+      #   # Create folder structure of subdirectories
+      #   if foldername != "."
+      #     create_recursive(foldername)
+      #   end
+      #   projectpath = "#{@name}/#{filename}".chomp(".erb")
+      #   scaffoldpath = "lib/farmstead/scaffold/#{filename}"
+      #   template = File.read(scaffoldpath)
+      #   results = ERB.new(template).result(binding)
+      #   copy_to_directory(results, projectpath)
+      # end
     end
 
     # Recursive Create
