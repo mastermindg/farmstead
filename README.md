@@ -12,6 +12,7 @@ Farmstead is a modular data pipeline platform. Farmstead makes creating and depl
 
 - [Getting started](#getting-started)
     - [Configuration](#configuration)
+        + [Configuration Options](#config-options)
     - [Environment Variables](#env)
     - [Deployment Methods](#deployment)
 - [Architecture](#architecture)
@@ -56,6 +57,34 @@ farmstead new myproject -c myproject.yml
 ```
 
 An example configuration file is included.
+
+#### Configuration Options
+
+**Rails Authentication**
+
+There is optional Rails Authentication with AUTH0.
+
+**Rails Environment**
+
+The default environment is development but can be set to production (if you're ready).
+
+**Database**
+
+The default database is MySQL but can be set to anything that Rails can handle. 
+
+**Kafka**
+
+The default is to advertise the IP address assigned to the host. If you're behind a firewall or a load-balancer and want to change it you anything you want. Here's an example:
+
+```yaml
+kafka:
+    - advertise_from_local_ip: false
+    - advertised_ip: 192.168.1.2
+```
+
+You can use a custom Zookeeper cluster if you have one. Just set the zookeeper_address in the config.
+
+You can also create custom topics outside of the default Wood, Field, Forest, and Road. 
 
 ### Environment Variables
 

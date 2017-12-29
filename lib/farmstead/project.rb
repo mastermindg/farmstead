@@ -1,4 +1,5 @@
 require "erb"
+require "net/http"
 
 module Farmstead
   # creates a Farmstead Project
@@ -16,6 +17,7 @@ module Farmstead
 
     def start_deploy
       Dir.chdir @name
+      File.chmod(0755, "exec.sh")
       system ("bash exec.sh")
     end
 
@@ -27,25 +29,27 @@ module Farmstead
 
     # Generate from templates in scaffold
     def generate_files
-      #erbfiles = File.join("**", "*.erb")
-      scaffold_path = "#{File.dirname __FILE__}/scaffold/"
-      Dir.chdir scaffold_path
-      files = Dir.glob("**/*")
-      p files.inspect
-      #scaffold = Dir.glob(erbfiles, File::FNM_DOTMATCH)
-      # scaffold.each do |file|
-      #   filename = file.match('lib\/farmstead\/scaffold\/(.*)')[1]
-      #   foldername = File.dirname(filename)
-      #   # Create folder structure of subdirectories
-      #   if foldername != "."
-      #     create_recursive(foldername)
-      #   end
-      #   projectpath = "#{@name}/#{filename}".chomp(".erb")
-      #   scaffoldpath = "lib/farmstead/scaffold/#{filename}"
-      #   template = File.read(scaffoldpath)
-      #   results = ERB.new(template).result(binding)
-      #   copy_to_directory(results, projectpath)
-      # end
+      ip = get_ip_address_from_locals
+      scaffold_path = "#{File.dirname __FILE__}/scaffold"
+      scaffold = Dir.glob("#{scaffold_path}/**/*.erb", File::FNM_DOTMATCH)
+      scaffold.each do |file|
+        basename = File.basename(file)
+        folderstruct = file.match("#{scaffold_path}/(.*)")[1]
+        if basename != folderstruct
+          foldername = File.dirname(folderstruct)
+          create_recursive("#{@name}/#{foldername}")
+        end
+        projectpath = "#{@name}/#{folderstruct}".chomp(".erb")
+        template = File.read(file)
+        results = ERB.new(template).result(binding)
+        copy_to_directory(results, projectpath)
+      end
+    end
+
+    def get_ip_address_from_local
+      response = Net::HTTP.get(URI("http://v4.ifconfig.co/json"))
+      json = eval(response)
+      json[:ip]
     end
 
     # Recursive Create
@@ -54,7 +58,7 @@ module Farmstead
       directory = ""
       recursive.each do |sub_directory|
         directory += sub_directory + "/"
-        Dir.mkdir("#{@name}/#{directory}") unless (File.directory? directory)
+        Dir.mkdir("#{directory}") unless (File.directory? directory)
       end
     end
 

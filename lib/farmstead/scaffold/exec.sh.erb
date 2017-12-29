@@ -8,6 +8,12 @@ docker-compose rm -f > /dev/null 2>&1
 
 echo "Building new environment"
 docker-compose build > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  printf "\tBuild successsful"
+else
+  printf "\tBuild failed"
+  exit 1
+fi
 
 echo "Starting MySQL and Zookeeper"
 docker-compose up -d mysql zookeeper > /dev/null 2>&1
