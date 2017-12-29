@@ -16,8 +16,7 @@ module Farmstead
 
     def start_deploy
       Dir.chdir @name
-      deploy = system ("bash exec.sh")
-      p deploy.inspect
+      system ("bash exec.sh")
     end
 
     # Creates OR RE-Creates the Project Directory
@@ -31,14 +30,14 @@ module Farmstead
       erbfiles = File.join("**", "*.erb")
       scaffold = Dir.glob(erbfiles, File::FNM_DOTMATCH)
       scaffold.each do |file|
-        file.gsub! /\bscaffold\b/, ""
-        foldername = File.dirname(file)
+        filename = file.match('lib\/farmstead\/scaffold\/(.*)')[1]
+        foldername = File.dirname(filename)
         # Create folder structure of subdirectories
-        if foldername != "/"
+        if foldername != "."
           create_recursive(foldername)
         end
-        projectpath = "#{@name}#{file}".chomp(".erb")
-        scaffoldpath = "scaffold#{file}"
+        projectpath = "#{@name}/#{filename}".chomp(".erb")
+        scaffoldpath = "lib/farmstead/scaffold/#{filename}"
         template = File.read(scaffoldpath)
         results = ERB.new(template).result(binding)
         copy_to_directory(results, projectpath)
