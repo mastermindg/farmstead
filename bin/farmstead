@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'farmstead/cli'
+require 'farmstead'
 
 Farmstead::CLI.start
