@@ -29,7 +29,7 @@ module Farmstead
 
     # Generate from templates in scaffold
     def generate_files
-      ip = get_ip_address_from_locals
+      ip = get_ip_address_from_local
       scaffold_path = "#{File.dirname __FILE__}/scaffold"
       scaffold = Dir.glob("#{scaffold_path}/**/*.erb", File::FNM_DOTMATCH)
       scaffold.each do |file|
