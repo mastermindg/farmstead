@@ -35,11 +35,10 @@ require "farmstead/version"
 require "farmstead/project"
 require "farmstead/cli"
 require "farmstead/service"
-require "farmstead/tinman"
-require "farmstead/cowardlylion"
-require "farmstead/glenda"
-require "farmstead/scarecrow"
-require "farmstead/tinman"
+require "farmstead/manager"
+require "farmstead/pipeline/extract"
+require "farmstead/pipeline/transform"
+require "farmstead/pipeline/load"
 
 module Farmstead
   # Your code goes here...

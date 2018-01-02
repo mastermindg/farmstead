@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/farmstead.svg)](https://badge.fury.io/rb/farmstead)
 [![Build Status](https://api.travis-ci.org/mastermindg/farmstead.svg?branch=master)](http://travis-ci.org/mastermindg/farmstead)
 
-Farmstead is a modular data pipeline platform. Farmstead makes creating and deploying a fully-functional data pipeline a snap. It is built on top of Rails/Ruby and uses Docker. This combination allows for a super-fast deployment and prototyping process.
+Farmstead is a modular data pipeline platform. Farmstead makes creating and deploying a fully-functional data pipeline a snap. Farmstead uses containers to encapsulate the middleware which allows for a super-fast deployment and prototyping process.
 
 
 ## Table of Contents
@@ -38,8 +38,6 @@ To create a new Farmstead project:
 
 ```
 farmstead new myproject
-cd myproject
-farmstead start
 ```
 
 ### Configuration
@@ -60,17 +58,9 @@ An example configuration file is included.
 
 #### Configuration Options
 
-**Rails Authentication**
-
-There is optional Rails Authentication with AUTH0.
-
-**Rails Environment**
-
-The default environment is development but can be set to production (if you're ready).
-
 **Database**
 
-The default database is MySQL but can be set to anything that Rails can handle. 
+The default database is MySQL but can be set to either MySQL, Postgres, or SQLLite. Extensions will be available 
 
 **Kafka**
 
@@ -103,29 +93,33 @@ farmstead new myproject -x kubernetes
 
 ## Architecture
 
-Kafka and Database ETL
+Kafka and Database 
 
-Presently only Dorothy is running Rails. The rest of the services are only running a Kafka consumer and producer. Eventually that will change.
+ETL
 
-### Scheduler - Glenda
+* Extract
+* Transform
+* Load
 
-Glenda
+All of the services are only running a Kafka consumer and producer. There is a Manager service that 
 
-### Fertilize - Tinman
+**Classes:**
 
-Tinman
+### Farmstead::Manager
 
-### Harvest - Scarecrow
+Task scheduling, batch processing, and general flow control. Exposes a very simple web service where you can pull logs and see the data in real-time.
 
-Scarecrow
+### Farmstead::Extract
 
-### Mill - CowardlyLion
+Extracts the data from the source.
 
-Cowardlylion
+### Farmstead::Transform
 
-### Serve - Dorothy
+Transforms one or more datasets.
 
-Dorothy
+### Farmstead::Load
+
+Loads the data into a database.
 
 ## License
 
@@ -134,7 +128,6 @@ MIT
 
 ## TODO
 
-1. Find out how to create roles for Dorothy
+1. Database extensions
 2. Get Micro-services working
-3. Figure out how to get Selenium working or if it's necessary (Selenium)
 

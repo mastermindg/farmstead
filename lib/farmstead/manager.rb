@@ -1,5 +1,4 @@
-# Glenda - the Scheduler
-#
+# Manager
 #
 # It works off of the DB when
 # 1) A new site is added
@@ -27,7 +26,7 @@
 # HINT: See .env
 # Every micro-service inherits the Service class
 module Farmstead
-  class Glenda < Service
+  class Manager < Service
     # Runs on an infinite loop processing records
     # on MySQL DB and writing messages accordingly
     def producer
@@ -97,3 +96,4 @@ module Farmstead
     end
   end
 end
+
