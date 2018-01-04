@@ -1,5 +1,5 @@
 module MyProject
-  class Transformer < Farmstead::Transform
+  class Extracter < Farmstead::Extract
     def hello
       p "hello"
     end
