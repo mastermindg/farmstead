@@ -12,7 +12,6 @@ module Farmstead
     def create
       create_directory
       generate_files
-      start_deploy
     end
 
     def start_deploy
