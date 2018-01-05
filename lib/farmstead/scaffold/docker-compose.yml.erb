@@ -24,49 +24,40 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  dorothy:
+  manage:
     depends_on:
       - 'mysql'
-    build:
-      context: .
-      dockerfile: Dockerfile-dorothy
+    build: .
+    environment:
+      SERVICE: manage
     ports:
       - '3000:3000'
     env_file:
       - '.env'
-
-  glenda:
-    depends_on:
-      - 'dorothy'
-    build: .
-    environment:
-      SERVICE: glenda
-    env_file:
-      - '.env'
   
-  tinman:
+  extract:
     depends_on:
-      - 'dorothy'
+      - 'manage'
     build: .
     environment:
-      SERVICE: tinman
+      SERVICE: extract
     env_file:
       - '.env'
 
-  scarecrow:
+  transform:
     depends_on:
-      - 'dorothy'
+      - 'manage'
     build: .
     environment:
-      SERVICE: scarecrow
+      SERVICE: transform
     env_file:
       - '.env'
 
-  cowardlylion:
+  load:
     depends_on:
-      - 'dorothy'
+      - 'manage'
     build: .
     environment:
-      SERVICE: cowardlylion
+      SERVICE: load
     env_file:
       - '.env'

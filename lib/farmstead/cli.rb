@@ -1,8 +1,8 @@
 require "thor"
-# require 'farmstead/cli/net'
+#require "farmstead/cli/test"
 
 module Farmstead
-  class CLI < Thor
+  class HammerTime < Thor
     class_option :verbose, aliases: "--v", type: "boolean", desc: "Be verbose"
     class_option :config, aliases: "-c", type: "string", desc: "Config file"
     class_option :database, aliases: "-d", type: "string", desc: "Database"
@@ -23,42 +23,15 @@ module Farmstead
       project.create
     end
 
-    desc "tinman command", "Send a command to tinman"
-    def tinman(command)
-      instance = Farmstead::Tinman.new
-      instance.send(command)
+    desc "deploy", "Deploys a project"
+    def deploy
+      Farmstead::Project.read_yml_into_env
+      File.chmod(0755, "exec.sh")
+      system ("bash exec.sh")
     end
 
-    desc "scarecrow command", "Send a command to scarecrow"
-    def scarecrow(command)
-      instance = Farmstead::Scarecrow.new
-      instance.send(command)
-    end
-
-    desc "cowardlylion command", "Send a command to cowardlylion"
-    def cowardlylion(command)
-      instance = Farmstead::Cowardlylion.new
-      instance.send(command)
-    end
-
-    desc "glenda command", "Send a command to glenda"
-    def glenda(command)
-      instance = Farmstead::Glenda.new
-      instance.send(command)
-    end
-
-    desc "foo", "Test foo"
-    def foo
-      true
-    end
-
-    desc "bar", "Test bar"
-    def bar
-      true
-    end
-
-    # desc "net COMMANDS", "Net control Module"
-    # subcommand "net", Socialinvestigator::CLI::Net
+    desc "test COMMANDS", "Test commands"
+    subcommand "test", Farmstead::CLI::test
 
     map "-v" => "version"
   end

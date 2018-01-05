@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'farmstead'
+require "farmstead"
 
-Farmstead::CLI.start
+Farmstead::HammerTime.start(ARGV)

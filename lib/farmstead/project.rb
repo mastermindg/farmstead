@@ -26,6 +26,11 @@ module Farmstead
       Dir.mkdir(@name)
     end
 
+    # Takes the project.yml file and generates an .env file for docker
+    def read_yml_into_env
+      puts "Hello"
+    end
+
     # Generate from templates in scaffold
     def generate_files
       ip = get_ip_address_from_local
