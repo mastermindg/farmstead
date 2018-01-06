@@ -1,5 +1,6 @@
 require "erb"
 require "net/http"
+require "yaml"
 
 module Farmstead
   # creates a Farmstead Project
@@ -14,10 +15,11 @@ module Farmstead
       generate_files
     end
 
-    def start_deploy
-      Dir.chdir @name
-      File.chmod(0755, "exec.sh")
-      system ("bash exec.sh")
+    def self.deploy
+      #Dir.chdir @name
+      self.read_yml_into_env
+      #File.chmod(0755, "exec.sh")
+      #system ("bash exec.sh")
     end
 
     # Creates OR RE-Creates the Project Directory
@@ -27,8 +29,28 @@ module Farmstead
     end
 
     # Takes the project.yml file and generates an .env file for docker
-    def read_yml_into_env
-      puts "Hello"
+    def self.read_yml_into_env
+      cnf = YAML::load(File.open('project.yml'))
+      File.open('.env', 'w') do |file|
+        cnf.each do |key, value|
+          if value.kind_of?(Array)
+            value.each do |element|
+              element.each do |ykey, yvalue|
+                if yvalue.kind_of?(Array)
+                  element.each do |zkey, zvalue|
+                    zvalue = zvalue.join(' ') if zvalue.kind_of?(Array)
+                    file.puts "#{zkey}=\"#{zvalue}\""
+                  end
+                else
+                  file.puts "#{ykey}=\"#{yvalue}\""
+                end
+              end
+            end
+          else
+            file.puts "#{key}=\"#{value}\""
+          end
+        end
+      end
     end
 
     # Generate from templates in scaffold

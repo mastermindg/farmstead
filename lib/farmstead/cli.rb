@@ -1,5 +1,5 @@
 require "thor"
-#require "farmstead/cli/test"
+require "farmstead/cli/test"
 
 module Farmstead
   class HammerTime < Thor
@@ -25,13 +25,11 @@ module Farmstead
 
     desc "deploy", "Deploys a project"
     def deploy
-      Farmstead::Project.read_yml_into_env
-      File.chmod(0755, "exec.sh")
-      system ("bash exec.sh")
+      Farmstead::Project.deploy
     end
 
     desc "test COMMANDS", "Test commands"
-    subcommand "test", Farmstead::CLI::test
+    subcommand "test", Farmstead::CLITest
 
     map "-v" => "version"
   end
