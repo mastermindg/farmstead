@@ -16,10 +16,10 @@ require_relative "extract/extracter"
 require_relative "load/loader"
 require_relative "transform/transformer"
 
-module MyProject
+module <%= @name.capitalize %>
   include Farmstead
 end
 
-klass = Object.const_get "MyProject::#{dynamic_class}"
+klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_class}"
 service = klass.new
 service.send(dynamic_method)
