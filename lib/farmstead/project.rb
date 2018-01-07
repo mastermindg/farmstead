@@ -2,6 +2,7 @@ require "erb"
 require "net/http"
 require "socket"
 require "yaml"
+require "os"
 
 module Farmstead
   # creates a Farmstead Project
@@ -76,10 +77,16 @@ module Farmstead
     def local_ip
       addr_infos = Socket.getifaddrs
       addr_infos.each do |addr_info|
-        if addr_info.addr
-          puts addr_info.addr.ip_address if addr_info.addr.ipv4? && addr_info.name != "lo0"
+        if addr_info.addr && addr_info.name == interface_from_arch
+          puts addr_info.addr.ip_address
         end
       end
+    end
+
+    def interface_from_arch
+      "Ethernet" if OS.windows?
+      "en0" if OS.mac?
+      "eth0" if OS.linux?
     end
 
     def public_ip

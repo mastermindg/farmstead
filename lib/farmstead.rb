@@ -31,8 +31,6 @@ require "httparty"
 require "open-uri"
 require "mechanize"
 
-require "helpers/os"
-
 require "farmstead/version"
 require "farmstead/project"
 require "farmstead/cli"

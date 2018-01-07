@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     farmstead (0.0.14)
-      os (~> 1.0.0)
+      os (~> 1.0)
       thor (~> 0.20.0)
 
 GEM
