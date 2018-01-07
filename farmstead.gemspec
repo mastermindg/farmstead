@@ -23,9 +23,16 @@ Gem::Specification.new do |spec|
   spec.executables   = ['farmstead']
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "thor", "~> 0.20.0"
-  spec.add_dependency "os", "~> 1.0"
+  spec.add_runtime_dependency "thor", "~> 0.20.0"
+  spec.add_runtime_dependency "os", "~> 1.0"
+  spec.add_runtime_dependency "ruby-kafka", "~> 0.5.1"
+  spec.add_runtime_dependency "mysql2", "~> 0.4.10"
+  spec.add_runtime_dependency "nokogiri", "~> 1.8.1"
+  spec.add_runtime_dependency "mechanize", "~> 2.7.5"
+  spec.add_runtime_dependency "httparty", "~> 0.15.6"
 
+  spec.add_development_dependency "dotenv", "~> 0.11.1"
+  spec.add_development_dependency "listen", "~> 3.0.5"
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"

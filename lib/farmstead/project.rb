@@ -57,7 +57,7 @@ module Farmstead
 
     # Generate from templates in scaffold
     def generate_files
-      local_ip
+      ip = local_ip
       scaffold_path = "#{File.dirname __FILE__}/scaffold"
       scaffold = Dir.glob("#{scaffold_path}/**/*.erb", File::FNM_DOTMATCH)
       scaffold.each do |file|
@@ -77,16 +77,16 @@ module Farmstead
     def local_ip
       addr_infos = Socket.getifaddrs
       addr_infos.each do |addr_info|
-        if addr_info.addr && addr_info.name == interface_from_arch
-          puts addr_info.addr.ip_address
+        if addr_info.addr && addr_info.addr.ipv4? && addr_info.name == interface_from_arch
+          return addr_info.addr.ip_address
         end
       end
     end
 
     def interface_from_arch
-      "Ethernet" if OS.windows?
-      "en0" if OS.mac?
-      "eth0" if OS.linux?
+      return "Ethernet" if OS.windows?
+      return "en0" if OS.mac?
+      return "eth0" if OS.linux?
     end
 
     def public_ip
