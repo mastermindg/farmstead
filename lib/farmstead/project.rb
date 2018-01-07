@@ -1,5 +1,6 @@
 require "erb"
 require "net/http"
+require "socket"
 require "yaml"
 
 module Farmstead
@@ -55,7 +56,7 @@ module Farmstead
 
     # Generate from templates in scaffold
     def generate_files
-      ip = get_ip_address_from_local
+      local_ip
       scaffold_path = "#{File.dirname __FILE__}/scaffold"
       scaffold = Dir.glob("#{scaffold_path}/**/*.erb", File::FNM_DOTMATCH)
       scaffold.each do |file|
@@ -72,7 +73,16 @@ module Farmstead
       end
     end
 
-    def get_ip_address_from_local
+    def local_ip
+      addr_infos = Socket.getifaddrs
+      addr_infos.each do |addr_info|
+        if addr_info.addr
+          puts addr_info.addr.ip_address if addr_info.addr.ipv4? && addr_info.name != "lo0"
+        end
+      end
+    end
+
+    def public_ip
       response = Net::HTTP.get(URI("http://v4.ifconfig.co/json"))
       json = eval(response)
       json[:ip]

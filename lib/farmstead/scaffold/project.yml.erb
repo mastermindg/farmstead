@@ -8,6 +8,6 @@ database:
   - MYSQL_HOST: mysql
 kafka:
   - advertise_from_local_ip: false
-  - advertised_ip: 192.168.1.2
+  - KAFKA_ADVERTISED_HOST_NAME: 192.168.1.2
   - zookeeper_address: "zookeeper:2181"
   - KAFKA_CREATE_TOPICS: "Manage:1:1,Extract:1:1,Load:1:1,Transform:1:1"
