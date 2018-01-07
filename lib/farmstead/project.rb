@@ -16,10 +16,10 @@ module Farmstead
     end
 
     def self.deploy
-      #Dir.chdir @name
+      # Dir.chdir @name
       self.read_yml_into_env
-      #File.chmod(0755, "exec.sh")
-      #system ("bash exec.sh")
+      File.chmod(0755, "exec.sh")
+      system ("bash exec.sh")
     end
 
     # Creates OR RE-Creates the Project Directory
