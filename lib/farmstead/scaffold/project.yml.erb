@@ -8,5 +8,5 @@ database:
   - MYSQL_HOST: mysql
 kafka:
   - KAFKA_ADVERTISED_HOST_NAME: <%= ip %>
-  - zookeeper_address: "zookeeper:2181"
+  - KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
   - KAFKA_CREATE_TOPICS: "Manage:1:1,Extract:1:1,Load:1:1,Transform:1:1"

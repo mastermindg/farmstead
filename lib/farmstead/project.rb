@@ -41,15 +41,15 @@ module Farmstead
                 if yvalue.kind_of?(Array)
                   element.each do |zkey, zvalue|
                     zvalue = zvalue.join(' ') if zvalue.kind_of?(Array)
-                    file.puts "#{zkey}=\"#{zvalue}\""
+                    file.puts "#{zkey}=#{zvalue}"
                   end
                 else
-                  file.puts "#{ykey}=\"#{yvalue}\""
+                  file.puts "#{ykey}=#{yvalue}"
                 end
               end
             end
           else
-            file.puts "#{key}=\"#{value}\""
+            file.puts "#{key}=#{value}"
           end
         end
       end

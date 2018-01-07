@@ -16,7 +16,7 @@ services:
   kafka:
     depends_on:
       - 'zookeeper'
-    image: wurstmeister/kafka:0.10.2.1
+    image: wurstmeister/kafka
     ports:
       - '9092:9092'
     env_file:

@@ -5,13 +5,14 @@
 echo "Cleaning up old environment"
 docker-compose stop
 docker-compose rm -f
+docker volume prune -f
 
 echo "Building new environment"
 docker-compose build
 if [ $? -eq 0 ]; then
-  printf "\tBuild successsful"
+  printf "\tBuild successsful\n"
 else
-  printf "\tBuild failed"
+  printf "\tBuild failed\n"
   exit 1
 fi
 
@@ -20,12 +21,6 @@ docker-compose up -d mysql zookeeper > /dev/null 2>&1
 
 echo "Sleeping"
 sleep 10
-
-echo "Starting dorothy"
-docker-compose up -d dorothy > /dev/null 2>&1
-
-echo "Create and Seed MySQL DB"
-docker-compose exec dorothy rails db:setup > /dev/null 2>&1
 
 echo "Starting everything else"
 docker-compose up -d > /dev/null 2>&1
