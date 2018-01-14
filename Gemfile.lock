@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    farmstead (0.0.14)
+    farmstead (0.0.15)
       httparty (~> 0.15.6)
       mechanize (~> 2.7)
       mysql2 (~> 0.4.10)
@@ -65,7 +65,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
-    ruby-kafka (0.5.1)
+    ruby-kafka (0.5.2)
     thor (0.20.0)
     unf (0.1.4)
       unf_ext
