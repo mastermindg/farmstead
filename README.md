@@ -40,6 +40,13 @@ To create a new Farmstead project:
 farmstead new myproject
 ```
 
+Once the project is created cd to the directory and deploy to get started:
+
+```
+cd myproject
+farmstead deploy
+```
+
 ### Configuration
 
 Farmstead tries to follow Rails conventions. Some of the configuration options are available from the command-line. For instance, to chose a different database techhnology use the -d flag:
@@ -124,10 +131,3 @@ Loads the data into a database.
 ## License
 
 MIT
-
-
-## TODO
-
-1. Database extensions
-2. Get Micro-services working
-
