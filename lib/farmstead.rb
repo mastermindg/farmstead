@@ -30,6 +30,7 @@ require "nokogiri"
 require "httparty"
 require "open-uri"
 require "mechanize"
+require "sinatra"
 
 require "farmstead/version"
 require "farmstead/project"

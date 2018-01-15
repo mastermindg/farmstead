@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "nokogiri", "~> 1.8"
   spec.add_runtime_dependency "mechanize", "~> 2.7"
   spec.add_runtime_dependency "httparty", "~> 0.15.6"
+  spec.add_runtime_dependency "sinatra", "~> 2.0.0"
 
   spec.add_development_dependency "dotenv", "~> 0.11.1"
   spec.add_development_dependency "listen", "~> 3.0"
