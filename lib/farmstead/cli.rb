@@ -28,6 +28,12 @@ module Farmstead
       Farmstead::Project.deploy
     end
 
+    desc "pipelined", "Test a pipeline API"
+    def pipeline
+      Farmstead.const_set("OPERATION", "started")
+      require_relative "farmstead/extract"
+    end
+
     desc "test COMMANDS", "Test commands"
     subcommand "test", Farmstead::CLITest
 

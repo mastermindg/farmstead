@@ -11,33 +11,37 @@
 #
 # Every micro-service inherits the Service class
 module Farmstead
-  class Transform < Service
+  module Transform
     # Does nothing...work is handled by magic_work
-    def producer
-      loop do
-        puts "Do nothing"
-        sleep 300
+    class Producer < Farmstead::Service
+      def doit
+        loop do
+          puts "Do nothing"
+          sleep 300
+        end
       end
     end
 
     # Subscribed to the Field topic
     # Works on message
-    def consumer
-      @consumer.subscribe('Forest')
-      trap('TERM') { @consumer.stop }
-      @consumer.each_message do |message|
-        puts "Received: #{message.value}"
-        magic_work(message.value)
-        @consumer.mark_message_as_processed(message)
+    class Consumer < Farmstead::Service
+      def doit
+        @consumer.subscribe('Forest')
+        trap('TERM') { @consumer.stop }
+        @consumer.each_message do |message|
+          puts "Received: #{message.value}"
+          magic_work(message.value)
+          @consumer.mark_message_as_processed(message)
+        end
       end
-    end
 
-    def magic_work(site)
-      hash = JSON.parse(site)
-      hash['cowardlylion'] = 'true'
-      json = hash.to_json
-      puts "Writing: #{json}"
-      write_message(json, topic: 'Road')
+      def magic_work(site)
+        hash = JSON.parse(site)
+        hash['cowardlylion'] = 'true'
+        json = hash.to_json
+        puts "Writing: #{json}"
+        write_message(json, topic: 'Road')
+      end
     end
   end
 end

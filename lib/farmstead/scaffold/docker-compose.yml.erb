@@ -29,7 +29,7 @@ services:
       - 'mysql'
     build: .
     environment:
-      SERVICE: manager
+      SERVICE: Manager
     ports:
       - '3000:3000'
     env_file:
@@ -40,7 +40,7 @@ services:
       - 'manage'
     build: .
     environment:
-      SERVICE: extracter
+      SERVICE: Extracter
     env_file:
       - '.env'
 
@@ -49,7 +49,7 @@ services:
       - 'manage'
     build: .
     environment:
-      SERVICE: transformer
+      SERVICE: Transformer
     env_file:
       - '.env'
 
@@ -58,6 +58,6 @@ services:
       - 'manage'
     build: .
     environment:
-      SERVICE: loader
+      SERVICE: Loader
     env_file:
       - '.env'

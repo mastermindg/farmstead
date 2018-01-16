@@ -1,5 +1,6 @@
 module <%= @name.capitalize %>
-  class Loader < Farmstead::Load
+  class Loader
+    include Farmstead::Load
     def hello
       p "hello"
     end

@@ -26,73 +26,89 @@
 # HINT: See .env
 # Every micro-service inherits the Service class
 module Farmstead
-  class Manager < Service
-    # Runs on an infinite loop processing records
-    # on MySQL DB and writing messages accordingly
-    def producer
-      loop do
-        puts 'Checking sites'
-        check_sites
-        puts 'Checking tasks'
-        # regular_tasks
-        sleep 3
+  module Manager
+    class Producer < Farmstead::Service
+      def doit
+        loop do
+          puts 'Checking sites'
+          check_sites
+          puts 'Checking tasks'
+          # regular_tasks
+          sleep 3
+        end
+      end
+
+      # Checks for any new sites to be processed
+      # Adds them to the message queue
+      def check_sites
+        sites = @mysql.query("SELECT * FROM sites WHERE pickedup = 'false'")
+        return false if sites.count.zero?
+        sites.each do |site|
+          json = site.to_json
+          siteid = get_from_json(json, 'id')
+          # import_site(json, siteid)
+          write_message(json, topic: 'Wood')
+          mark_pickedup(siteid)
+        end
       end
     end
 
     # Subscribed to the Road topic
     # Imports Hash into MySQL Database for each message
-    def consumer
-      @consumer.subscribe('Road')
-      trap('TERM') { @consumer.stop }
-      @consumer.each_message do |message|
-        puts "Received: #{message.value}"
-        hash = JSON.parse(message.value)
-        import_site(hash, hash[:id])
-        mark_processed(hash[:id])
-        @consumer.mark_message_as_processed(message)
+    class Consumer < Farmstead::Service
+      def doit
+        @consumer.subscribe('Road')
+        trap('TERM') { @consumer.stop }
+        @consumer.each_message do |message|
+          puts "Received: #{message.value}"
+          hash = JSON.parse(message.value)
+          import_site(hash, hash[:id])
+          mark_processed(hash[:id])
+          @consumer.mark_message_as_processed(message)
+        end
       end
-    end
 
-    # Checks for any new sites to be processed
-    # Adds them to the message queue
-    def check_sites
-      sites = @mysql.query("SELECT * FROM sites WHERE pickedup = 'false'")
-      return false if sites.count.zero?
-      sites.each do |site|
-        json = site.to_json
-        siteid = get_from_json(json, 'id')
-        # import_site(json, siteid)
-        write_message(json, topic: 'Wood')
-        mark_pickedup(siteid)
+      # Checks for any new sites to be processed
+      # Adds them to the message queue
+      def check_sites
+        sites = @mysql.query("SELECT * FROM sites WHERE pickedup = 'false'")
+        return false if sites.count.zero?
+        sites.each do |site|
+          json = site.to_json
+          siteid = get_from_json(json, 'id')
+          # import_site(json, siteid)
+          write_message(json, topic: 'Wood')
+          mark_pickedup(siteid)
+        end
       end
-    end
 
-    # Sets the value of pickedup to true
-    def mark_pickedup(siteid)
-      @mysql.query("UPDATE sites SET pickedup = 'true' WHERE id = #{siteid}")
-    end
-
-    # Sets the value of processed to true
-    def mark_processed(siteid)
-      @mysql.query("UPDATE sites SET processed = 'true' WHERE id = #{siteid}")
-    end
-
-    # Checks for any processing tasks that need to be
-    # completed at speicifc times
-    def regular_tasks
-      tasks = @mysql.query("SELECT * FROM tasks WHERE processed = 'false'")
-      return false if tasks.count.zero?
-      tasks.each do |task|
-        json = task.to_json
-        taskid = get_id(task)
-        write_message(json, topic: 'Wood')
-        mark_pickedup(taskid)
+      # Sets the value of pickedup to true
+      def mark_pickedup(siteid)
+        @mysql.query("UPDATE sites SET pickedup = 'true' WHERE id = #{siteid}")
       end
-    end
 
-    # Imports site data as a Hash into MySQL DB
-    def import_site(sitehash, siteid)
-      sitehash
+      # Sets the value of processed to true
+      def mark_processed(siteid)
+        @mysql.query("UPDATE sites SET processed = 'true' WHERE id = #{siteid}")
+      end
+
+      # Checks for any processing tasks that need to be
+      # completed at speicifc times
+      def regular_tasks
+        tasks = @mysql.query("SELECT * FROM tasks WHERE processed = 'false'")
+        return false if tasks.count.zero?
+        tasks.each do |task|
+          json = task.to_json
+          taskid = get_id(task)
+          write_message(json, topic: 'Wood')
+          mark_pickedup(taskid)
+        end
+      end
+
+      # Imports site data as a Hash into MySQL DB
+      def import_site(sitehash, siteid)
+        sitehash
+      end
     end
   end
 end

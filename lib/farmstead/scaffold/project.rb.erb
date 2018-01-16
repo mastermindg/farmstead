@@ -5,8 +5,8 @@
 # 1st - the class you want to call
 # 2nd - the method you want to call
 
-dynamic_class = ARGV[0].capitalize
-dynamic_method = ARGV[1]
+dynamic_module = ARGV[0].capitalize
+dynamic_class = ARGV[1]
 
 # Extend Farmstead
 require "farmstead"
@@ -20,6 +20,6 @@ module <%= @name.capitalize %>
   include Farmstead
 end
 
-klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_class}"
+klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_module}::#{dynamic_class}"
 service = klass.new
-service.send(dynamic_method)
+service.send("doit")

@@ -1,6 +1,6 @@
 # Base Class for all micro-services
 module Farmstead
-  module Service
+  class Service
     def initialize
       read_environment
       #mysql_init

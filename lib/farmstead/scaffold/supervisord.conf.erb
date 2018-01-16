@@ -2,9 +2,9 @@
 nodaemon=true
 
 [program:producer]
-command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s producer
+command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Producer
 redirect_stderr=true
 
 [program:consumer]
-command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s consumer
+command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Consumer
 redirect_stderr=true

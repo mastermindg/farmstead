@@ -1,5 +1,6 @@
 module <%= @name.capitalize %>
-  class Extracter < Farmstead::Extract
+  module Extracter
+    include Farmstead::Extract
     def hello
       p "hello"
     end
