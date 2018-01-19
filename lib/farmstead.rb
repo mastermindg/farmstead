@@ -34,6 +34,7 @@ require "sinatra/base"
 
 require "farmstead/version"
 require "farmstead/project"
+require "farmstead/api"
 require "farmstead/cli"
 require "farmstead/service"
 require "farmstead/pipeline/manage"

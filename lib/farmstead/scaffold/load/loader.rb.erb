@@ -1,9 +1,9 @@
 module <%= @name.capitalize %>
   module Loader
     include Farmstead::Load
-    class API < Sinatra::Base
-      register Sinatra::DefaultRoutes
-      set :port, 3000
+    
+    # Sinatra API - Customize here
+    class API < Farmstead::API
     end
   end
 end
