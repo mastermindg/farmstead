@@ -22,4 +22,4 @@ end
 
 klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_module}::#{dynamic_class}"
 service = klass.new
-service.send("doit")
+service.send("run!")

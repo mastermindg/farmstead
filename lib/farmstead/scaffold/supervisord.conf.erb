@@ -8,3 +8,7 @@ redirect_stderr=true
 [program:consumer]
 command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Consumer
 redirect_stderr=true
+
+[program:api]
+command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s API
+redirect_stderr=true

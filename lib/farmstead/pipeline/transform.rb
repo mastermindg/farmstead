@@ -14,7 +14,7 @@ module Farmstead
   module Transform
     # Does nothing...work is handled by magic_work
     class Producer < Farmstead::Service
-      def doit
+      def run!
         loop do
           puts "Do nothing"
           sleep 300
@@ -25,7 +25,7 @@ module Farmstead
     # Subscribed to the Field topic
     # Works on message
     class Consumer < Farmstead::Service
-      def doit
+      def run!
         @consumer.subscribe('Forest')
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|

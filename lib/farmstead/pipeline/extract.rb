@@ -11,7 +11,7 @@ module Farmstead
   OPERATION = 1
   module Extract
     class Producer < Farmstead::Service
-      def doit
+      def run!
         loop do
           puts "Do something"
           sleep 300
@@ -22,7 +22,7 @@ module Farmstead
     # Subscribed to the Field topic
     # Works on message
     class Consumer < Farmstead::Service
-      def doit
+      def run!
         @consumer.subscribe('Field')
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|

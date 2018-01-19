@@ -28,7 +28,7 @@
 module Farmstead
   module Manager
     class Producer < Farmstead::Service
-      def doit
+      def run!
         loop do
           puts 'Checking sites'
           check_sites
@@ -56,7 +56,7 @@ module Farmstead
     # Subscribed to the Road topic
     # Imports Hash into MySQL Database for each message
     class Consumer < Farmstead::Service
-      def doit
+      def run!
         @consumer.subscribe('Road')
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|
