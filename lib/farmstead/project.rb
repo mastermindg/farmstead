@@ -10,7 +10,7 @@ module Farmstead
     attr_accessor :name
     attr_accessor :config
     attr_accessor :database
-    attr_accessor :deploy
+    attr_accessor :deploy_method
 
     def create
       create_directory

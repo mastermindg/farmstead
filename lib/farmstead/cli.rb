@@ -19,7 +19,11 @@ module Farmstead
       project.name = project_name
       project.database = options[:database] if options[:database]
       project.config = options[:config] if options[:config]
-      project.deploy = options[:deploy] if options[:deploy]
+      if options[:deploy]
+        project.deploy_method = options[:deploy] 
+      else
+        project.deploy_method = "docker"
+      end
       project.create
     end
 
