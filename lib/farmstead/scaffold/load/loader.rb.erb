@@ -1,8 +1,9 @@
 module <%= @name.capitalize %>
-  class Loader
+  module Loader
     include Farmstead::Load
-    def hello
-      p "hello"
+    class API < Sinatra::Base
+      register Sinatra::DefaultRoutes
+      set :port, 3000
     end
   end
 end

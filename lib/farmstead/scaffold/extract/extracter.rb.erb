@@ -3,7 +3,7 @@ module <%= @name.capitalize %>
     include Farmstead::Extract
     class API < Sinatra::Base
       register Sinatra::DefaultRoutes
-      set :port, 22340
+      set :port, 3000
     end
   end
 end

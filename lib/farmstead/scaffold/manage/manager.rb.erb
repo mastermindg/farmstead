@@ -1,9 +1,10 @@
 module <%= @name.capitalize %>
-  module Transformer
-    include Farmstead::Transform
+  module Manager
+    include Farmstead::Manage
     class API < Sinatra::Base
       register Sinatra::DefaultRoutes
       set :port, 3000
     end
   end
 end
+

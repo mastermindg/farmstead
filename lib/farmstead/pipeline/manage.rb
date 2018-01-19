@@ -1,4 +1,4 @@
-# Manager
+# Manage
 #
 # It works off of the DB when
 # 1) A new site is added
@@ -26,7 +26,7 @@
 # HINT: See .env
 # Every micro-service inherits the Service class
 module Farmstead
-  module Manager
+  module Manage
     class Producer < Farmstead::Service
       def run
         loop do

@@ -24,7 +24,7 @@ klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_module}::#{dynamic_
 
 # Sinatra Wrapper uses Class method
 if dynamic_class == "API"
-  service.run!
+  klass.run!
 else
   service = klass.new
   service.send("run")
