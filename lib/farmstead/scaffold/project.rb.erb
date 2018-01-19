@@ -21,5 +21,11 @@ module <%= @name.capitalize %>
 end
 
 klass = Object.const_get "<%= @name.capitalize %>::#{dynamic_module}::#{dynamic_class}"
-service = klass.new
-service.send("run!")
+
+# Sinatra Wrapper uses Class method
+if dynamic_class == "API"
+  service.run!
+else
+  service = klass.new
+  service.send("run")
+end

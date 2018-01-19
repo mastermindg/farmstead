@@ -28,7 +28,7 @@
 module Farmstead
   module Manager
     class Producer < Farmstead::Service
-      def run!
+      def run
         loop do
           puts 'Checking sites'
           check_sites
