@@ -34,7 +34,6 @@ require "sinatra/base"
 
 require "farmstead/version"
 require "farmstead/project"
-require "farmstead/api"
 require "farmstead/cli"
 require "farmstead/service"
 require "farmstead/pipeline/manage"
@@ -44,6 +43,7 @@ require "farmstead/pipeline/load"
 
 require "farmstead/api/defaultroutes.rb"
 require "farmstead/api/helpers.rb"
+require "farmstead/api"
 
 module Farmstead
   # Your code goes here...
