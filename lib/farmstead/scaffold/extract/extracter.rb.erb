@@ -1,8 +1,9 @@
 module <%= @name.capitalize %>
   module Extracter
     include Farmstead::Extract
-    def hello
-      p "hello"
+    class API < Sinatra::Base
+      register Sinatra::DefaultRoutes
+      set :port, 22340
     end
   end
 end

@@ -40,13 +40,5 @@ module Farmstead
         write_message(json, topic: 'Forest')
       end
     end
-
-    class API < Sinatra::Base
-      set :port, 22340
-      get '/' do
-        "Hello from MyApp!"
-      end
-      run! if Farmstead::OPERATION == "started"
-    end
   end
 end
