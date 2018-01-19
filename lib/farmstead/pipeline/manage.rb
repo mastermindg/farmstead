@@ -56,7 +56,7 @@ module Farmstead
     # Subscribed to the Road topic
     # Imports Hash into MySQL Database for each message
     class Consumer < Farmstead::Service
-      def run!
+      def run
         @consumer.subscribe('Road')
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|
