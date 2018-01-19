@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mastermindg@gmail.com"]
 
   spec.summary       = "Farmstead is a modular data pipeline platform."
-  spec.description   = "Farmstead is a modular data pipeline platform. Farmstead makes creating and deploying a fully-functional data pipeline a snap. It is built on top of Rails/Ruby and uses Docker. This combination allows for a super-fast deployment and prototyping process."
+  spec.description   = "Farmstead is a modular data pipeline platform. Farmstead makes creating and deploying a fully-functional data pipeline a snap. Farmstead uses containers to encapsulate the middleware which allows for a super-fast deployment and prototyping process."
   spec.homepage      = "https://github.com/mastermindg/farmstead"
   spec.license       = "MIT"
 
