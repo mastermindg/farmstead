@@ -14,7 +14,7 @@ module Farmstead
     end
     
     desc "environment", "Get the environment variables on the system"
-    def version
+    def environment
       Farmstead::ENVIRONMENT.each do |var|
         puts var
       end
