@@ -8,6 +8,12 @@ module Sinatra
       app.get "/version" do
         "Farmstead #{Farmstead::VERSION}"
       end
+
+      app.get "/environment" do
+        Farmstead::ENVIRONMENT.each do |var|
+          var
+        end
+      end
     end
   end
   register DefaultRoutes
