@@ -12,6 +12,14 @@ module Farmstead
     def version
       puts "Farmstead #{Farmstead::VERSION}"
     end
+    
+    desc "environment", "Get the environment variables on the system"
+    def version
+      Farmstead::ENVIRONMENT.each do |var|
+        puts var
+      end
+    end
+
 
     desc "new project_name", "Create a new project"
     def new(project_name)
