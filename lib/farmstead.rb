@@ -31,7 +31,6 @@ require "httparty"
 require "open-uri"
 require "mechanize"
 require "sinatra/base"
-require "sinatra/namespace"
 
 require "farmstead/version"
 require "farmstead/environment"
@@ -46,6 +45,7 @@ require "farmstead/pipeline/load"
 
 require "farmstead/api/defaultroutes.rb"
 require "farmstead/api/helpers.rb"
+require "farmstead/api/v1.rb"
 require "farmstead/api"
 
 module Farmstead
