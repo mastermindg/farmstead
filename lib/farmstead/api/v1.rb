@@ -7,6 +7,10 @@ module Sinatra
     def self.registered(app)
       app.register Sinatra::Namespace
       app.namespace "/api/v1" do
+        before do
+          content_type 'application/json'
+        end
+        
         get "/source" do
           Farmstead::DB.add_source
         end
