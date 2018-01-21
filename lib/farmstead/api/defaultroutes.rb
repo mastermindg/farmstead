@@ -1,7 +1,7 @@
 module Sinatra
   module DefaultRoutes
     def self.registered(app)
-      app.set :views, Dir.pwd + '/api/views'
+      app.set :views, app.settings.root + '/api/views'
       app.get "/" do
         "Welcome to our API"
       end
