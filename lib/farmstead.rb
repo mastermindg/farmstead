@@ -33,7 +33,6 @@ require "mechanize"
 require "sinatra/base"
 
 require "farmstead/version"
-require "farmstead/environment"
 require "farmstead/project"
 require "farmstead/cli"
 require "farmstead/db"
