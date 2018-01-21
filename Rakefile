@@ -7,7 +7,7 @@ desc "RSpec Test and Release Gem"
 task :released do
   sh "rake spec"
   sh "rake release"
-  sleep 15
+  sleep 20
   sh "gem update farmstead"
 end
 
