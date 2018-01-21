@@ -17,9 +17,8 @@ RUN apt-get update -qq && \
 RUN mkdir /service
 WORKDIR /service
 ADD Gemfile* /service/
-RUN gem install bundler && bundle install --jobs 20 --retry 5
+RUN gem install bundler && bundle install --retry 5
 ADD . /service
-#RUN gem install farmstead
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
