@@ -1,9 +1,10 @@
+require "sinatra/base"
 require "sinatra/namespace"
 
-module Farmstead
+module Sinatra
   module V1
     
-    self.registered(app)
+    def self.registered(app)
       app.register Sinatra::Namespace
       app.namespace "/api/v1" do
         get "/source" do
@@ -11,6 +12,7 @@ module Farmstead
         end
       end
     end
-  
+    
   end
+  register V1
 end

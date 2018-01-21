@@ -13,12 +13,6 @@ module Sinatra
         Farmstead::ENVIRONMENT.join(" ")
       end
 
-      namespace "/api/v1" do
-        app.get "/source" do
-          Farmstead::DB.add_source
-        end
-      end
-
     end
   end
   register DefaultRoutes
