@@ -10,7 +10,7 @@ module Sinatra
         end
 
       app.get "/environment" do
-        Farmstead::ENVIRONMENT.join(" ")
+        Farmstead::ENVIRONMENT.class
       end
 
     end
