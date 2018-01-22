@@ -43,7 +43,6 @@ module Farmstead
 
     desc "pipelined", "Test a pipeline API"
     def pipeline
-      Farmstead.const_set("OPERATION", "started")
       require_relative "farmstead/extract"
     end
 

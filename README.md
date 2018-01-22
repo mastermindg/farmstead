@@ -16,11 +16,6 @@ Farmstead is a modular data pipeline platform. Farmstead makes creating and depl
     - [Environment Variables](#env)
     - [Deployment Methods](#deployment)
 - [Architecture](#architecture)
-    - [Scheduler - Glenda](#glenda)
-    - [Fertilize - Tinman](#tinman)
-    - [Harvest - Scarecrow](#scarecrow)
-    - [Mill - CowardlyLion](#cowardlylion)
-    - [Serve - Dorothy](#dorothy)
 - [License](#license)
 
 <!-- /TOC -->
@@ -108,7 +103,9 @@ ETL
 * Transform
 * Load
 
-All of the services are only running a Kafka consumer and producer. There is a Manager service that 
+All of the services are only running a Kafka consumer and producer. There is a Manager service that manages the flow.
+
+Projects are built with their own classes to allow extending the API.
 
 **Classes:**
 
@@ -129,7 +126,7 @@ Transforms one or more datasets.
 Loads the data into a database.
 
 **Test**
-curl -X PUT -H "Accept: application/json" -d '{ "name": "test", "type": "test" }' http://localhost:3000/api/v1/source
+curl -X PUT -H "Accept: application/json" -d '{ "name": "test", "type": "test", "module": "Test" }' http://localhost:3000/api/v1/source
 
 
 ## License

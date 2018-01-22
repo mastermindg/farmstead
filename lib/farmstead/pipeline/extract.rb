@@ -8,7 +8,6 @@
 #
 # Every micro-service inherits the Service class
 module Farmstead
-  OPERATION = 1
   module Extract
     class Producer < Farmstead::Service
       def run

@@ -13,7 +13,7 @@ module Farmstead
     def self.add_source(payload)
       self.pull_variables
       ds = @@DB[:sources]
-      ds.insert(:name => payload["name"], :type => payload["type"])
+      ds.insert(name: payload["name"], type: payload["type"], module: payload["module"])
     end
 
     def self.setup
@@ -22,6 +22,7 @@ module Farmstead
         primary_key(:id)
         String(:name)
         String(:type)
+        String(:module)
       end
     end
 
