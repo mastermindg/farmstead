@@ -128,6 +128,10 @@ Transforms one or more datasets.
 
 Loads the data into a database.
 
+**Test**
+curl -X PUT -H "Accept: application/json" -d '{ "name": "test", "type": "test" }' http://localhost:3000/api/v1/source
+
+
 ## License
 
 MIT
