@@ -1,7 +1,7 @@
 # Database subcommands
 
 module Farmstead
-  class DBTest < Thor
+  class CLIDB < Thor
     desc "setup", "Setup the database"
     def setup
       puts "Setting up the database"
