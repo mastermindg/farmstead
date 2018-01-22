@@ -13,8 +13,9 @@ module Sinatra
         end
         
         put "/source" do
-          payload = JSON.parse(request.body.read)
-          Farmstead::DB.add_source(payload)
+          request.body.read
+          #payload = JSON.parse(request.body.read)
+          #Farmstead::DB.add_source(payload)
         end
       end
     end
