@@ -1,5 +1,6 @@
 require "thor"
 require "farmstead/cli/test"
+require "farmstead/cli/db"
 
 module Farmstead
   class HammerTime < Thor
@@ -45,6 +46,10 @@ module Farmstead
       Farmstead.const_set("OPERATION", "started")
       require_relative "farmstead/extract"
     end
+
+    desc "db COMMANDS", "Database commands"
+    subcommand "db", Farmstead::CLIDB
+
 
     desc "test COMMANDS", "Test commands"
     subcommand "test", Farmstead::CLITest
