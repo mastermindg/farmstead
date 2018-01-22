@@ -10,10 +10,11 @@ module Farmstead
       @@DB = Sequel.connect(adapter: "mysql2", host: @@mysql_host, database: @@mysql_database, user: @@mysql_user, password: @@mysql_password)
     end
     
-    def self.add_source(name,type)
+    def self.add_source(payload)
       self.pull_variables
-      ds = @@DB[:sources]
-      ds.insert(:name => name, :type => type)
+      payload
+      #ds = @@DB[:sources]
+      #ds.insert(:name => name, :type => type)
     end
 
     def self.setup
