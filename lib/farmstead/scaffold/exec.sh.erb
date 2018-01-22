@@ -23,7 +23,7 @@ echo "Sleeping"
 sleep 10
 
 echo "Create database tables"
-farmstead db setup
+docker-compose exec manage farmstead db setup
 
 echo "Starting everything else"
 docker-compose up -d > /dev/null 2>&1

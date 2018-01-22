@@ -11,8 +11,9 @@ module Sinatra
           content_type 'application/json'
         end
         
-        get "/source" do
-          Farmstead::DB.add_source
+        put "/source" do
+          JSON.parse(app.request.body.read)
+          #Farmstead::DB.add_source
         end
       end
     end
