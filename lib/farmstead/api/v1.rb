@@ -1,5 +1,6 @@
 require "sinatra/base"
 require "sinatra/namespace"
+require "json"
 
 module Sinatra
   module V1
@@ -12,8 +13,8 @@ module Sinatra
         end
         
         put "/source" do
-          JSON.parse(app.request.body.read)
-          #Farmstead::DB.add_source
+          payload = JSON.parse(request.body.read)
+          Farmstead::DB.add_source(payload)
         end
       end
     end

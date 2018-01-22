@@ -22,8 +22,9 @@ docker-compose up -d mysql zookeeper > /dev/null 2>&1
 echo "Sleeping"
 sleep 10
 
+echo "Starting everything else"
+docker-compose up -d > /dev/null 2>&1
+
 echo "Create database tables"
 docker-compose exec manage farmstead db setup
 
-echo "Starting everything else"
-docker-compose up -d > /dev/null 2>&1
