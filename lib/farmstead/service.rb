@@ -23,15 +23,6 @@ module Farmstead
       #@selenium_hub = ENV['SELENIUM_HUB']
     end
 
-    def mysql_init
-      @mysql = Mysql2::Client.new(
-        host: @mysql_host,
-        username: @mysql_user,
-        password: @mysql_pass,
-        database: @mysql_db
-      )
-    end
-
     # Runs on an infinite loop processing records
     # on MySQL DB and writing messages accordingly
     def producer
@@ -84,6 +75,14 @@ module Farmstead
     def print_time
       time1 = Time.new
       write_file(@logfile, "Current Time : #{time1.inspect}")
+    end
+
+    def magic_work(body)
+      hash = JSON.parse(body)
+      hash['scarecrow'] = 'true'
+      json = hash.to_json
+      puts "Writing: #{json}"
+      write_message(json, topic: 'Forest')
     end
   end
 end

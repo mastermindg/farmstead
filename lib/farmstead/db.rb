@@ -24,6 +24,23 @@ module Farmstead
         String(:type)
         String(:module)
       end
+      @@DB.create_table :test do
+        primary_key(:id)
+        String(:result)
+      end
+    end
+
+    def self.list(table)
+      self.pull_variables
+      ds = @@DB[table]
+      puts ds.all
+    end
+
+    # Insert an array of values into a table
+    def self.insert(table,array)
+      self.pull_variables
+      ds = @@DB[table]
+      ds.insert(array)
     end
 
   end

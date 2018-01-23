@@ -8,9 +8,10 @@ module Farmstead
       Farmstead::DB.setup
     end
 
-    desc "list", "List the sources"
-    def list
-      puts "List the sources"
+    desc "list table", "List all records in a table"
+    def list(table)
+      puts "List all records in a table"
+      Farmstead::DB.list(table)
     end
   end
 end

@@ -9,35 +9,23 @@
 # Every micro-service inherits the Service class
 module Farmstead
   module Extract
-    class Producer < Farmstead::Service
+    class Service < Farmstead::Service
       def run
-        loop do
-          puts "Do something"
-          sleep 300
-        end
-      end
-    end
-
-    # Subscribed to the Field topic
-    # Works on message
-    class Consumer < Farmstead::Service
-      def run
-        @consumer.subscribe('Field')
+        @consumer.subscribe("Field")
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|
           puts "Received: #{message.value}"
-          magic_work(message.value)
+          # Run the extract method of the module referenced by the message
+          obj = JSON.parse(message.value)
+          my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{obj["module"]}"
+          result = my_module::extract
+          Farmstead::DB.insert("test",[result])
+          @producer.produce(result, topic: "Forest")
+          @producer.deliver_messages
           @consumer.mark_message_as_processed(message)
         end
-      end
-
-      def magic_work(site)
-        hash = JSON.parse(site)
-        hash['scarecrow'] = 'true'
-        json = hash.to_json
-        puts "Writing: #{json}"
-        write_message(json, topic: 'Forest')
       end
     end
   end
 end
+
