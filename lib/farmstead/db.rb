@@ -7,7 +7,8 @@ module Farmstead
       @@mysql_password = ENV["MYSQL_PASSWORD"]
       @@mysql_user = ENV["MYSQL_USER"]
       @@mysql_database = ENV["MYSQL_DATABASE"]
-      @@DB = Sequel.connect(adapter: "mysql2", host: @@mysql_host, database: @@mysql_database, user: @@mysql_user, password: @@mysql_password)
+      @@mysql_port = ENV["MYSQL_PORT"]
+      @@DB = Sequel.connect(adapter: "mysql2", host: @@mysql_host, port: @@mysql_port, database: @@mysql_database, user: @@mysql_user, password: @@mysql_password)
     end
     
     def self.add_source(payload)
