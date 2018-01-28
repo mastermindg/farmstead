@@ -6,7 +6,7 @@
 #
 # Field --> Forest --> Road
 #
-# It then takes the config from the DB and passed it to the Wood topic
+# It then takes the config from the DB and passed it to the Field topic
 # 
 # The Extract class pulls the site config from the Field Topic and then pushes
 # site data to the Forest topic.
@@ -21,53 +21,23 @@
 # Every micro-service inherits the Service class
 module Farmstead
   module Manage
-    class Producer < Farmstead::Service
+    class Service < Farmstead::Service
       def run
-        loop do
-          puts 'Checking sites'
-          check_sites
-          puts 'Checking tasks'
-          # regular_tasks
-          sleep 3
+        # Cycle thru sources, pull config and pass to Kafka
+        @@DB[:sources].each do |source|
+          result = source["config"]
+          puts result
+          @producer.produce(result, topic: "Field")
+          @producer.deliver_messages
         end
       end
 
-      # Checks for any new sites to be processed
+      # Checks for any new sources to be processed
       # Adds them to the message queue
-      def check_sites
-        sites = @mysql.query("SELECT * FROM sites WHERE pickedup = 'false'")
-        return false if sites.count.zero?
-        sites.each do |site|
-          json = site.to_json
-          siteid = get_from_json(json, 'id')
-          # import_site(json, siteid)
-          write_message(json, topic: 'Wood')
-          mark_pickedup(siteid)
-        end
-      end
-    end
-
-    # Subscribed to the Road topic
-    # Imports Hash into MySQL Database for each message
-    class Consumer < Farmstead::Service
-      def run
-        @consumer.subscribe('Road')
-        trap('TERM') { @consumer.stop }
-        @consumer.each_message do |message|
-          puts "Received: #{message.value}"
-          hash = JSON.parse(message.value)
-          import_site(hash, hash[:id])
-          mark_processed(hash[:id])
-          @consumer.mark_message_as_processed(message)
-        end
-      end
-
-      # Checks for any new sites to be processed
-      # Adds them to the message queue
-      def check_sites
-        sites = @mysql.query("SELECT * FROM sites WHERE pickedup = 'false'")
-        return false if sites.count.zero?
-        sites.each do |site|
+      def check_sources
+        sources = @mysql.query("SELECT * FROM sources WHERE pickedup = 'false'")
+        return false if sources.count.zero?
+        sources.each do |site|
           json = site.to_json
           siteid = get_from_json(json, 'id')
           # import_site(json, siteid)

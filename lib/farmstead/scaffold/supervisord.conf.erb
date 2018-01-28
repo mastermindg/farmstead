@@ -1,12 +1,8 @@
 [supervisord]
 nodaemon=true
 
-[program:producer]
-command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Producer
-redirect_stderr=true
-
-[program:consumer]
-command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Consumer
+[program:service]
+command=/usr/local/bin/ruby /service/project.rb %(ENV_SERVICE)s Service
 redirect_stderr=true
 
 [program:api]

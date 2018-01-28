@@ -22,6 +22,7 @@ module Farmstead
         primary_key(:id)
         String(:name)
         String(:type)
+        String(:config)
         String(:module)
       end
       @@DB.create_table :test do
