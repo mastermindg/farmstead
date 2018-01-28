@@ -4,23 +4,17 @@
 # 1) A new site is added
 # 2) A scheduled site pull is configured to happen
 #
+# Field --> Forest --> Road
+#
 # It then takes the config from the DB and passed it to the Wood topic
-#
-# Tinman is running as a Consumer and it will automatically pick up the message
-# and do it's job and then send a message (as a Producer) to the Field topic
-#
-# Scarecrow is running as a Consumer and it will automatically pick up the
-# message and do it's job and then send a message (as a Producer)
-# to the Forest topic
-#
-# CowardlyLion is running as a Consumer and it will automatically pick up the
-# message and do it's job and then send a message (as a Producer)
-# to the Road topic
-#
-# Glenda is running as a Consumer and it will automatically pick up messages
-# from the Road topic. This is the final product of scraping a site. It's stored
-# in a Hash. Glenda imports the Hash into the MySQL database where it is
-# presented by Dorothy
+# 
+# The Extract class pulls the site config from the Field Topic and then pushes
+# site data to the Forest topic.
+# 
+# The Transform class pulls the site data from teh Forest topic and then pushes 
+# to the Road topic.
+# 
+# The Load class pulls data from the Road topic and loads it into the database.
 #
 # Topics are created when Kafka comes up
 # HINT: See .env
