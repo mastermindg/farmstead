@@ -16,6 +16,11 @@ module Farmstead
       ds.insert(name: payload["name"], type: payload["type"], module: payload["module"])
     end
 
+    def self.select_all(table)
+      self.pull_variables
+      @@DB[:sources]
+    end
+
     def self.setup
       self.pull_variables
       @@DB.create_table :sources do

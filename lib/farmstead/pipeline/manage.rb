@@ -24,7 +24,8 @@ module Farmstead
     class Service < Farmstead::Service
       def run
         # Cycle thru sources, pull config and pass to Kafka
-        @@DB[:sources].each do |source|
+        sources = Farmstead::DB.select_all("sources")
+        sources.each do |source|
           result = source["config"]
           puts result
           @producer.produce(result, topic: "Field")
