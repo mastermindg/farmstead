@@ -14,7 +14,7 @@ module Farmstead
         message = "StopandShop"
         puts "Received: #{message}"
         project_name = ENV["name"].capitalize
-        my_module = Object.const_get "#{project_name}::#{project_name}"
+        my_module = Object.const_get "#{project_name}::#{message}"
         result = my_module::extract
         puts result.inspect
         Farmstead::DB.insert_test(result)
@@ -26,8 +26,9 @@ module Farmstead
         @consumer.each_message do |message|
           puts "Received: #{message.value}"
           # The Field message only contains the module name
+          project_name = ENV["name"].capitalize
           module_name = message.value
-          my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{module_name}"
+          my_module = Object.const_get "#{project_name}::#{module_name}"
           result = my_module::extract
           puts result.inspect
           Farmstead::DB.insert_test(result)
