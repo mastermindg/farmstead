@@ -41,8 +41,12 @@ module Farmstead
       Farmstead::Project.deploy
     end
 
+    desc "setup", "Create source references"
     def setup
       puts "Setup"
+      Dir[File.join(__dir__, "/sources/*.rb")].each do |file|
+        puts file
+      end
     end
 
     desc "pipelined", "Test a pipeline API"
