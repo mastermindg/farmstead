@@ -52,7 +52,7 @@ module Farmstead
 
     def self.create_table(table, hash)
       self.pull_variables
-        @@DB.create_table? [table] do
+        @@DB.create_table? table do
         #primary_key(:id) if hash[:primary_key] 
           String(:name)
           String(:type)
