@@ -19,11 +19,11 @@ module Farmstead
           module_name = message.value
           my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{module_name}"
           result = my_module::extract
-          puts result
+          puts result.inspect
           Farmstead::DB.insert_test(result)
-          @producer.produce(result, topic: "Forest")
-          @producer.deliver_messages
-          @consumer.mark_message_as_processed(message)
+          #@producer.produce(result, topic: "Forest")
+          #@producer.deliver_messages
+          #@consumer.mark_message_as_processed(message)
         end
       end
     end
