@@ -44,7 +44,7 @@ module Farmstead
     desc "setup", "Create source references"
     def setup
       puts "Setup"
-      Dir[File.join(__dir__, "/sources/*.rb")].each do |file|
+      Dir[File.join(Dir.pwd, "/sources/*.rb")].each do |file|
         puts file
       end
     end
