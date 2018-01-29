@@ -27,9 +27,9 @@ module Farmstead
         # Cycle thru sources, pull config and pass to Kafka
         sources = Farmstead::DB.select_all("sources")
         sources.each do |source|
-          result = source["config"]
-          puts result
-          @producer.produce(result, topic: "Field")
+          module_name = source["module"]
+          puts module_name
+          @producer.produce(module_name, topic: "Field")
           @producer.deliver_messages
         end
       end
