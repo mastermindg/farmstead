@@ -34,7 +34,7 @@ module Farmstead
     def self.add_source(module_name, module_type, module_call)
       self.pull_variables
       ds = @@DB[:sources]
-      ds.insert(module_name, module_type, module_call)
+      ds.insert([:name, :type, :module], [module_name,module_type,module_call])
     end
 
     def self.list(table)
