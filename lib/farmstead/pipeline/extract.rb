@@ -11,6 +11,16 @@ module Farmstead
   module Extract
     class Service < Farmstead::Service
       def run
+        message = "StopandShop"
+        puts "Received: #{message}"
+        module_name = message
+        my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{module_name}"
+        result = my_module::extract
+        puts result.inspect
+        Farmstead::DB.insert_test(result)
+      end
+
+      def runs
         @consumer.subscribe("Field")
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|
