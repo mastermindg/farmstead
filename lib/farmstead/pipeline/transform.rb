@@ -20,8 +20,10 @@ module Farmstead
           puts "Received: #{message.value}"
           # Run the load method of the module referenced by the message
           obj = JSON.parse(message.value)
-          my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{obj["module"]}"
-          result = my_module::transform
+          project_name = ENV["name"].capitalize
+          module_name = obj["module_name"]
+          my_module = Object.const_get "#{project_name}::#{module_name}"
+          result = my_module::transform(obj["result"])
           Farmstead::DB.insert("test",result: result)
           @producer.produce(result, topic: "Road")
           @producer.deliver_messages

@@ -11,16 +11,6 @@ module Farmstead
   module Extract
     class Service < Farmstead::Service
       def run
-        message = "StopandShop"
-        puts "Received: #{message}"
-        project_name = ENV["name"].capitalize
-        my_module = Object.const_get "#{project_name}::#{message}"
-        result = my_module::extract
-        puts result.inspect
-        Farmstead::DB.insert_test(result)
-      end
-
-      def runs
         @consumer.subscribe("Field")
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|
@@ -32,9 +22,11 @@ module Farmstead
           result = my_module::extract
           puts result.inspect
           Farmstead::DB.insert_test(result)
-          #@producer.produce(result, topic: "Forest")
-          #@producer.deliver_messages
-          #@consumer.mark_message_as_processed(message)
+          hash = {module_name: module_name, result: result}
+          hash = hash.to_json
+          @producer.produce(hash, topic: "Forest")
+          @producer.deliver_messages
+          @consumer.mark_message_as_processed(message)
         end
       end
     end
