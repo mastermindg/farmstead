@@ -24,6 +24,7 @@ module Farmstead
           module_name = obj["module_name"]
           my_module = Object.const_get "#{project_name}::#{module_name}"
           result = my_module::transform(obj["result"])
+          puts result
           Farmstead::DB.insert_test(result)
           hash = {module_name: module_name, result: result}
           hash = hash.to_json

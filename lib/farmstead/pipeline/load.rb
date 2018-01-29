@@ -17,9 +17,11 @@ module Farmstead
           puts "Received: #{message.value}"
           # Run the load method of the module referenced by the message
           obj = JSON.parse(message.value)
-          my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{obj["module"]}"
-          result = my_module::load
-          Farmstead::DB.insert("test",result: result)
+          project_name = ENV["name"].capitalize
+          module_name = obj["module_name"]
+          my_module = Object.const_get "#{project_name}::#{module_name}"
+          puts obj["result"]
+          #result = my_module::load(obj["result"])
           @consumer.mark_message_as_processed(message)
         end
       end
