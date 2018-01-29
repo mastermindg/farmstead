@@ -41,31 +41,6 @@ module Farmstead
       Farmstead::Project.deploy
     end
 
-    desc "setup", "Create source references"
-    def setup
-      puts "Setup"
-      Dir[File.join(Dir.pwd, "/sources/*.rb")].each do |file|
-        require file
-        array = File.readlines(file)
-        matches = []
-        array.each do |line|
-          if line =~ /module/ then
-            matches.push(line)
-          end
-        end
-        # Nested modules
-        parentmodule = matches[0]
-        submodule = matches[1]
-        # Get the module name
-        suby = submodule.split.last
-        topy = parentmodule.split.last
-
-        module_name = Object.const_get "#{topy}::#{suby}::MYNAME"
-        module_type = Object.const_get "#{topy}::#{suby}::TYPE"
-        Farmstead::DB.add_source(module_name, module_type, suby)
-      end
-    end
-
     desc "pipelined", "Test a pipeline API"
     def pipeline
       require_relative "farmstead/extract"
