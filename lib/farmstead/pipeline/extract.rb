@@ -16,7 +16,7 @@ module Farmstead
         @consumer.each_message do |message|
           puts "Received: #{message.value}"
           # The Field message only contains the module name
-          module_name = JSON.parse(message.value)
+          module_name = message.value
           my_module = Object.const_get "<%= ENV['name'].capitalize %>::#{module_name}"
           result = my_module::extract
           Farmstead::DB.insert("test",result: result)
