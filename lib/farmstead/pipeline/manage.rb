@@ -26,8 +26,9 @@ module Farmstead
         puts "Starting Manager"
         # Cycle thru sources, pull config and pass to Kafka
         sources = Farmstead::DB.select_all("sources")
+        puts sources.inspect
         sources.each do |source|
-          module_name = source["module"]
+          module_name = source[:module]
           puts module_name
           @producer.produce(module_name, topic: "Field")
           @producer.deliver_messages
