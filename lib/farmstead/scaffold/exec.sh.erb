@@ -25,6 +25,7 @@ sleep 10
 echo "Starting everything else"
 docker-compose up -d > /dev/null 2>&1
 
-echo "Create database tables"
+docker-compose exec manage farmstead db create
+
 docker-compose exec manage farmstead db setup
 

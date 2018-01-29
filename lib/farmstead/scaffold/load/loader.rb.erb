@@ -1,5 +1,7 @@
 module <%= @name.capitalize %>
   module Loader
+    class Service < Farmstead::Load::Service
+    end
     # Sinatra API - Customize here
     class API < Farmstead::API
     end
