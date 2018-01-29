@@ -14,7 +14,7 @@ module Farmstead
         message = "StopandShop"
         puts "Received: #{message}"
         project_name = ENV["name"].capitalize
-        my_module = Object.const_get "#{project_name}::#{module_name}"
+        my_module = Object.const_get "#{project_name}::#{project_name}"
         result = my_module::extract
         puts result.inspect
         Farmstead::DB.insert_test(result)
