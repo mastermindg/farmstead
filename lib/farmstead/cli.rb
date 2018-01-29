@@ -62,7 +62,7 @@ module Farmstead
 
         module_name = Object.const_get "#{topy}::#{suby}::MYNAME"
         module_type = Object.const_get "#{topy}::#{suby}::TYPE"
-        Farmstead::DB.setup(module_name, module_type, suby)
+        Farmstead::DB.add_source(module_name, module_type, suby)
       end
     end
 
