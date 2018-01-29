@@ -50,5 +50,12 @@ module Farmstead
       ds.insert(array)
     end
 
+    # Insert an array of values into a table
+    def self.insert_test(result)
+      self.pull_variables
+      ds = @@DB[:test]
+      ds.insert(result: result)
+    end
+
   end
 end
