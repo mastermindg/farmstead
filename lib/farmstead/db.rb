@@ -10,12 +10,6 @@ module Farmstead
       @@mysql_port = ENV["MYSQL_PORT"]
       @@DB = Sequel.connect(adapter: "mysql2", host: @@mysql_host, port: @@mysql_port, database: @@mysql_database, user: @@mysql_user, password: @@mysql_password)
     end
-    
-    def self.add_source(payload)
-      self.pull_variables
-      ds = @@DB[:sources]
-      ds.insert(name: payload["name"], type: payload["type"], module: payload["module"])
-    end
 
     def self.select_all(table)
       self.pull_variables
@@ -37,13 +31,10 @@ module Farmstead
       end
     end
 
-    # Setup sources from project directory
-    def self.setup(modules)
+    def self.add_source(module_name, module_type, module_call)
       self.pull_variables
       ds = @@DB[:sources]
-      modules.each do |m|
-        ds.insert(m.name, m.type, m.path)
-      end
+      ds.insert(module_name, module_type, module_call)
     end
 
     def self.list(table)
