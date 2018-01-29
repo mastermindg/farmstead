@@ -22,18 +22,27 @@ module Farmstead
       @@DB[:sources]
     end
 
-    def self.setup
+    # Create tables
+    def self.create
       self.pull_variables
       @@DB.create_table :sources do
         primary_key(:id)
         String(:name)
         String(:type)
-        String(:config)
         String(:module)
       end
       @@DB.create_table :test do
         primary_key(:id)
         String(:result)
+      end
+    end
+
+    # Setup sources from project directory
+    def self.setup(modules)
+      self.pull_variables
+      ds = @@DB[:sources]
+      modules.each do |m|
+        ds.insert(m.name, m.type, m.path)
       end
     end
 

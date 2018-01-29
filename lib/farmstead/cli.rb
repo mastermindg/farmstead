@@ -41,6 +41,10 @@ module Farmstead
       Farmstead::Project.deploy
     end
 
+    def setup
+      puts "Setup"
+    end
+
     desc "pipelined", "Test a pipeline API"
     def pipeline
       require_relative "farmstead/extract"
@@ -48,7 +52,6 @@ module Farmstead
 
     desc "db COMMANDS", "Database commands"
     subcommand "db", Farmstead::CLIDB
-
 
     desc "test COMMANDS", "Test commands"
     subcommand "test", Farmstead::CLITest
