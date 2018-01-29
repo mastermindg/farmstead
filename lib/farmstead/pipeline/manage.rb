@@ -23,6 +23,7 @@ module Farmstead
   module Manage
     class Service < Farmstead::Service
       def run
+        puts "Starting Manager"
         # Cycle thru sources, pull config and pass to Kafka
         sources = Farmstead::DB.select_all("sources")
         sources.each do |source|
