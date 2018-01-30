@@ -43,21 +43,40 @@ module Farmstead
       puts ds.all
     end
 
-    # Insert an array of values into a table
-    def self.insert(table,array)
+    def self.insert(table, hash)
       self.pull_variables
-      ds = @@DB[table]
-      ds.insert(array)
+      string = "INSERT INTO #{table} ("
+      hash.each_with_index do |(key, value), index|
+        string = string + key.to_s
+        unless index == 1
+          string = string + ","
+        end
+      end
+      string = string + ") VALUES ("
+      hash.each_with_index do |(key, value), index|
+        string = string + "'" + value + "'"
+        unless index == 1
+          string = string + ","
+        end
+      end
+      string = string + ")"
+      puts string
+      @@DB.run string
     end
 
+    # For now keep it simple
     def self.create_table(table, hash)
       self.pull_variables
-        @@DB.create_table? table do
-        #primary_key(:id) if hash[:primary_key] 
-          String(:name)
-          String(:type)
-          String(:module)
+      string = "CREATE TABLE IF NOT EXISTS #{table} (id integer primary key, "
+      hash.each_with_index do |(key, value), index|
+        string = string + key.to_s + " " + value
+        unless index == 1
+          string = string + ","
+        end
       end
+      string = string + ")"
+      puts string
+      @@DB.run string
     end
 
     # Insert an array of values into a table
