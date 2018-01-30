@@ -67,7 +67,7 @@ module Farmstead
     # For now keep it simple
     def self.create_table(table, hash)
       self.pull_variables
-      string = "CREATE TABLE IF NOT EXISTS #{table} (id integer primary key, "
+      string = "CREATE TABLE IF NOT EXISTS #{table} (id MEDIUMINT NOT NULL AUTO_INCREMENT primary key, "
       hash.each_with_index do |(key, value), index|
         string = string + key.to_s + " " + value
         unless index == 1
