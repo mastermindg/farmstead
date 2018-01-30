@@ -11,16 +11,6 @@ module Farmstead
   module Load
     class Service < Farmstead::Service
       def run
-        message = '{"module_name":"StopandShop","result":"Home - stop and shop"}'
-        obj = JSON.parse(message)
-        project_name = ENV["name"].capitalize
-        module_name = obj["module_name"]
-        my_module = Object.const_get "#{project_name}::#{module_name}"
-        puts obj["result"]
-        my_module::load(obj["result"])
-      end
-
-      def runs
         @consumer.subscribe("Road")
         trap('TERM') { @consumer.stop }
         @consumer.each_message do |message|

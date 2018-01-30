@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    farmstead (0.0.82)
+    farmstead (0.0.83)
       httparty (~> 0.15.6)
       mechanize (~> 2.7)
       mysql2 (~> 0.4.10)
