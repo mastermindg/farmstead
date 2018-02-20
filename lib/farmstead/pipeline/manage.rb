@@ -1,17 +1,17 @@
 # Manage
 #
 # It works off of the DB when
-# 1) A new site is added
-# 2) A scheduled site pull is configured to happen
+# 1) A new source is added
+# 2) A scheduled source pull is configured to happen
 #
 # Field --> Forest --> Road
 #
 # It then takes the config from the DB and passed it to the Field topic
 # 
-# The Extract class pulls the site config from the Field Topic and then pushes
-# site data to the Forest topic.
+# The Extract class pulls the source config from the Field Topic and then pushes
+# source data to the Forest topic.
 # 
-# The Transform class pulls the site data from teh Forest topic and then pushes 
+# The Transform class pulls the source data from teh Forest topic and then pushes 
 # to the Road topic.
 # 
 # The Load class pulls data from the Road topic and loads it into the database.
@@ -32,6 +32,7 @@ module Farmstead
           puts module_name
           @producer.produce(module_name, topic: "Field")
           @producer.deliver_messages
+          Farmstead::DB.mark_pickedup(module_name)
         end
       end
 
@@ -40,23 +41,13 @@ module Farmstead
       def check_sources
         sources = @mysql.query("SELECT * FROM sources WHERE pickedup = 'false'")
         return false if sources.count.zero?
-        sources.each do |site|
-          json = site.to_json
-          siteid = get_from_json(json, 'id')
-          # import_site(json, siteid)
+        sources.each do |source|
+          json = source.to_json
+          sourceid = get_from_json(json, 'id')
+          # import_source(json, sourceid)
           write_message(json, topic: 'Wood')
-          mark_pickedup(siteid)
+          mark_pickedup(sourceid)
         end
-      end
-
-      # Sets the value of pickedup to true
-      def mark_pickedup(siteid)
-        @mysql.query("UPDATE sites SET pickedup = 'true' WHERE id = #{siteid}")
-      end
-
-      # Sets the value of processed to true
-      def mark_processed(siteid)
-        @mysql.query("UPDATE sites SET processed = 'true' WHERE id = #{siteid}")
       end
 
       # Checks for any processing tasks that need to be
@@ -72,9 +63,9 @@ module Farmstead
         end
       end
 
-      # Imports site data as a Hash into MySQL DB
-      def import_site(sitehash, siteid)
-        sitehash
+      # Imports source data as a Hash into MySQL DB
+      def import_source(sourcehash, sourceid)
+        sourcehash
       end
     end
   end

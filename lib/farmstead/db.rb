@@ -24,6 +24,8 @@ module Farmstead
         String(:name)
         String(:type)
         String(:module)
+        TrueClass(:pickedup)
+        TrueClass(:processed)
       end
       @@DB.create_table :test do
         primary_key(:id)
@@ -84,6 +86,16 @@ module Farmstead
       self.pull_variables
       ds = @@DB[:test]
       ds.insert(result: result)
+    end
+
+    # Sets the value of pickedup to true
+    def mark_pickedup(source)
+      @@DB.run("UPDATE sources SET pickedup = 1 WHERE module = #{source}")
+    end
+
+    # Sets the value of processed to true
+    def mark_processed(source)
+      @@DB.run("UPDATE sources SET processed = 1 WHERE module = #{source}")
     end
 
   end

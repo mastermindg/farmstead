@@ -39,23 +39,6 @@ module Farmstead
       end
     end
 
-    # Each Farmstead site has a Class that defines it
-    # Each service runs one or more methods on that Class
-    def find_definitions(site, service)
-      mysite = @mysql.query("SELECT * FROM sites WHERE name = '#{site}'")
-      return false if mysite.count.zero?
-      mysite.each do |sited|
-        json = sited.to_json
-        config = get_from_json(json, 'config')
-        # Convert to hash where each element is a service and then associate it
-        # with the service name passed to this method
-      end
-    end
-
-    def doit
-      find_definitions('Yahoo', 'scarecrow')
-    end
-
     def write_message(message, topic)
       @producer.produce(message, topic)
       @producer.deliver_messages
